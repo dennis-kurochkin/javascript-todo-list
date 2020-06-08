@@ -1,6 +1,6 @@
 # v1 Requirements
 
-App should have:
+It should have:
 - A place to store todos
 - A way to display todos
 - A say to add new todos
