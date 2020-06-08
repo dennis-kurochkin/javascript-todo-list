@@ -9,3 +9,7 @@ console.log('My todos:', todos);
 todos.push('item 4');
 
 console.log('My todos:', todos);
+
+todos[2] = 'edited item 3';
+
+console.log('My todos:', todos);
