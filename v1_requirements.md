@@ -1,8 +1,7 @@
 # v1 Requirements
 
-It should have:
-- A place to store todos
-- A way to display todos
-- A say to add new todos
-- A way to change todo
-- A way to delete a todo
+- [ ] It should have a place to store todos
+- [ ] It should have a way to display todos
+- [ ] It should have a say to add new todos
+- [ ] It should have a way to change todo
+- [ ] It should have a way to delete a todo
