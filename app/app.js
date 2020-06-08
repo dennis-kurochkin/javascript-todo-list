@@ -29,3 +29,11 @@ function changeTodo(position, newValue) {
 }
 
 changeTodo(2, 'hey there');
+
+function deleteTodo(position) {
+    todos.splice(position, 1);
+
+    displayTodos();
+}
+
+deleteTodo(1);
