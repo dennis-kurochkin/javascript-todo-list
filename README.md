@@ -1,2 +1,3 @@
 # todo-list
- To-do list written with PHP
+
+To-do list written with JavaScript
