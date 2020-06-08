@@ -5,3 +5,7 @@ var todos = [
 ];
 
 console.log('My todos:', todos);
+
+todos.push('item 4');
+
+console.log('My todos:', todos);
