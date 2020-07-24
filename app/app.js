@@ -18,9 +18,13 @@ var todos = {
   ],
   // Method to display todos
   displayTodos: function () {
-    console.log('My todos:');
-    this.todos.forEach(todo => console.log(todo.completed ? '[x]' : '[ ]', todo.todoText));
-    console.log('==========');
+    if (this.todos.length > 0) {
+      console.log('My todos:');
+      this.todos.forEach(todo => console.log(todo.completed ? '[x]' : '[ ]', todo.todoText));
+      console.log('==========');
+    } else {
+      console.log('You have no todos. Would you add them?');
+    }
   },
   // Method to add todo
   addTodo: function (todoText) {
