@@ -1,39 +1,39 @@
 var todos = [
-    'item 1',
-    'item 2',
-    'item 3'
+  'item 1',
+  'item 2',
+  'item 3'
 ];
 
 function displayTodos() {
-    console.log('My todos:');
+  console.log('My todos:');
 
-    todos.forEach(todo => {
-        console.log(todo);
-    })
+  todos.forEach(todo => {
+    console.log(todo);
+  })
 }
 
 displayTodos();
 
 function addTodo(todo) {
-    todos.push(todo);
+  todos.push(todo);
 
-    displayTodos();
+  displayTodos();
 }
 
 addTodo('item 4');
 
 function changeTodo(position, newValue) {
-    todos[position] = newValue;
+  todos[position] = newValue;
 
-    displayTodos();
+  displayTodos();
 }
 
 changeTodo(2, 'hey there');
 
 function deleteTodo(position) {
-    todos.splice(position, 1);
+  todos.splice(position, 1);
 
-    displayTodos();
+  displayTodos();
 }
 
 deleteTodo(1);
