@@ -25,6 +25,7 @@ var App = {
     buttonToggleAll: '.js-toggle-all',
     addTodoForm: '.js-add-todo-form',
     changeTodoForm: '.js-change-todo-form',
+    deleteTodoForm: '.js-delete-todo-form',
     todoList: '.js-todo-list',
   },
 
@@ -37,12 +38,9 @@ var App = {
 
   // Method to display todos
   displayTodos: function () {
-    if (this.todos.length > 0) {
-      // console.log('My todos:');
-      // this.todos.forEach(todo => console.log(todo.completed ? '[x]' : '[ ]', todo.todoText));
-      // console.log('==========');
-      var todoList = document.querySelector(this.DOMElements.todoList);
+    var todoList = document.querySelector(this.DOMElements.todoList);
 
+    if (this.todos.length > 0) {
       todoList.innerHTML = '';
 
       this.todos.forEach(function (todo, index) {
@@ -52,7 +50,7 @@ var App = {
         todoList.appendChild(todoElement);
       });
     } else {
-      console.log('You have no todos. Why wouldn\'t you add them?');
+      todoList.innerHTML = '';
     }
   },
 
@@ -141,6 +139,19 @@ var App = {
         self.changeTodo(todoPositionInput.value, todoTextInput.value); // change todo with the given parameters
         todoPositionInput.value = ''; // clear the inputs
         todoTextInput.value = '';
+      }
+    })
+
+    // Add event listener for the delete todo form
+    document.querySelector(this.DOMElements.deleteTodoForm).addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      var todoPositionInput = this.querySelector('input.js-todo-position');
+
+      // Check if the input contains value
+      if (todoPositionInput.value !== '' && parseInt(todoPositionInput.value) < self.todos.length) {
+        self.deleteTodo(todoPositionInput.value); // change todo with the given parameters
+        todoPositionInput.value = ''; // clear the inputs
       }
     })
 
