@@ -22,7 +22,8 @@ var App = {
   // DOM Elements
   DOMElements: {
     buttonDisplayTodos: '.js-display-todos',
-    buttonToggleAll: '.js-toggle-all'
+    buttonToggleAll: '.js-toggle-all',
+    addTodoForm: '.js-add-todo-form'
   },
 
   // Todos data array
@@ -91,17 +92,27 @@ var App = {
 
   // Init method
   init: function () {
-    var self = this;
 
-    // Add event listener for the display todos button
-    document.querySelector(this.DOMElements.buttonDisplayTodos).addEventListener('click', function () {
-      self.displayTodos();
-    });
+    var self = this;
 
     // Add event listener for the toggle all button
     document.querySelector(this.DOMElements.buttonToggleAll).addEventListener('click', function () {
       self.toggleAll();
     });
+
+    // Add event listener for the add todo button
+    document.querySelector(this.DOMElements.addTodoForm).addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var todoTextInput = this.querySelector('input');
+
+      // Check if input contains a value
+      if (todoTextInput.value !== '') {
+        self.addTodo(todoTextInput.value); // add todo with the value from the input
+        todoTextInput.value = ''; // clear the input
+      }
+    });
+
   }
 
 }
