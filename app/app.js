@@ -103,10 +103,6 @@ var App = {
 
   // Event handlers
   handlers: {
-    // Toggle all handler
-    toggleAllHandler: function () {
-      App.toggleAll();
-    },
     // Add todo handler
     addTodoHandler: function (e) {
       e.preventDefault();
@@ -158,6 +154,10 @@ var App = {
         App.toggleCompleted(todoPositionInput.value); // toggle todo
         todoPositionInput.value = ''; // clear the input
       }
+    },
+    // Toggle all handler
+    toggleAllHandler: function () {
+      App.toggleAll();
     }
   },
 
@@ -167,10 +167,6 @@ var App = {
 
     // Display initial todos
     this.displayTodos();
-
-    // Add event listener for the toggle all button
-    document.querySelector(this.DOMElements.buttonToggleAll)
-      .addEventListener('click', this.handlers.toggleAllHandler);
 
     // Add event listener for the add todo form
     document.querySelector(this.DOMElements.addTodoForm)
@@ -187,6 +183,10 @@ var App = {
     // Add event listener for the toggle completed todo form
     document.querySelector(this.DOMElements.toggleCompletedTodoForm)
       .addEventListener('submit', this.handlers.toggleCompletedHandler)
+
+    // Add event listener for the toggle all button
+    document.querySelector(this.DOMElements.buttonToggleAll)
+      .addEventListener('click', this.handlers.toggleAllHandler);
   }
 
 }
