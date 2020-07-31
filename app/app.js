@@ -36,9 +36,18 @@ var App = {
   // Method to display todos
   displayTodos: function () {
     if (this.todos.length > 0) {
-      console.log('My todos:');
-      this.todos.forEach(todo => console.log(todo.completed ? '[x]' : '[ ]', todo.todoText));
-      console.log('==========');
+      // console.log('My todos:');
+      // this.todos.forEach(todo => console.log(todo.completed ? '[x]' : '[ ]', todo.todoText));
+      // console.log('==========');
+      var todoList = document.querySelector('.js-todo-list');
+
+      todoList.innerHTML = '';
+
+      this.todos.forEach(function (todo, index) {
+        var todoElement = document.createElement('li');
+        todoElement.innerText = `${index}. [${todo.completed ? 'x' : ' '}] ${todo.todoText}`;
+        todoList.appendChild(todoElement);
+      });
     } else {
       console.log('You have no todos. Why wouldn\'t you add them?');
     }
@@ -94,6 +103,8 @@ var App = {
   init: function () {
 
     var self = this;
+
+    this.displayTodos();
 
     // Add event listener for the toggle all button
     document.querySelector(this.DOMElements.buttonToggleAll).addEventListener('click', function () {
