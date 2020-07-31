@@ -8,7 +8,7 @@ var Todo = function (text) {
   this.toggleCompleted = function () {
     this.completed = !this.completed;
   }
- 
+
   // Method to complete the todo
   this.complete = function () {
     this.completed = true;
@@ -16,7 +16,14 @@ var Todo = function (text) {
 
 }
 
-var todos = {
+// Main App object
+var App = {
+
+  // DOM Elements
+  DOMElements: {
+    buttonDisplayTodos: '.js-display-todos',
+    buttonToggleAll: '.js-toggle-all'
+  },
 
   // Todos data array
   todos: [
@@ -80,15 +87,24 @@ var todos = {
     });
 
     this.displayTodos();
+  },
+
+  // Init method
+  init: function () {
+    var self = this;
+
+    // Add event listener for the display todos button
+    document.querySelector(this.DOMElements.buttonDisplayTodos).addEventListener('click', function () {
+      self.displayTodos();
+    });
+
+    // Add event listener for the toggle all button
+    document.querySelector(this.DOMElements.buttonToggleAll).addEventListener('click', function () {
+      self.toggleAll();
+    });
   }
 
 }
 
-todos.displayTodos();
-todos.addTodo('item 4');
-todos.changeTodo(2, 'hey there');
-todos.deleteTodo(0);
-todos.toggleCompleted(0);
-todos.toggleCompleted(1);
-todos.toggleCompleted(2);
-todos.toggleAll();
+// Init app
+App.init();
