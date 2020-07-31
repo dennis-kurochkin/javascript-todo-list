@@ -23,7 +23,9 @@ var App = {
   DOMElements: {
     buttonDisplayTodos: '.js-display-todos',
     buttonToggleAll: '.js-toggle-all',
-    addTodoForm: '.js-add-todo-form'
+    addTodoForm: '.js-add-todo-form',
+    changeTodoForm: '.js-change-todo-form',
+    todoList: '.js-todo-list',
   },
 
   // Todos data array
@@ -39,12 +41,13 @@ var App = {
       // console.log('My todos:');
       // this.todos.forEach(todo => console.log(todo.completed ? '[x]' : '[ ]', todo.todoText));
       // console.log('==========');
-      var todoList = document.querySelector('.js-todo-list');
+      var todoList = document.querySelector(this.DOMElements.todoList);
 
       todoList.innerHTML = '';
 
       this.todos.forEach(function (todo, index) {
         var todoElement = document.createElement('li');
+
         todoElement.innerText = `${index}. [${todo.completed ? 'x' : ' '}] ${todo.todoText}`;
         todoList.appendChild(todoElement);
       });
@@ -111,7 +114,7 @@ var App = {
       self.toggleAll();
     });
 
-    // Add event listener for the add todo button
+    // Add event listener for the add todo form
     document.querySelector(this.DOMElements.addTodoForm).addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -123,6 +126,23 @@ var App = {
         todoTextInput.value = ''; // clear the input
       }
     });
+
+    // Add event listener for the change todo form
+    document.querySelector(this.DOMElements.changeTodoForm).addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      var todoPositionInput = this.querySelector('input.js-todo-position');
+      var todoTextInput = this.querySelector('input.js-todo-text');
+
+      if (
+        todoPositionInput.value !== '' && todoTextInput.value !== '' && // check if inputs contain values
+        parseInt(todoPositionInput.value) < self.todos.length // check if input position is valid
+      ) {
+        self.changeTodo(todoPositionInput.value, todoTextInput.value); // change todo with the given parameters
+        todoPositionInput.value = ''; // clear the inputs
+        todoTextInput.value = '';
+      }
+    })
 
   }
 
