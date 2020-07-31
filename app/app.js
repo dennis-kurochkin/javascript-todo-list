@@ -101,33 +101,26 @@ var App = {
     this.displayTodos();
   },
 
-  // Init method
-  init: function () {
-
-    var self = this;
-
-    this.displayTodos();
-
-    // Add event listener for the toggle all button
-    document.querySelector(this.DOMElements.buttonToggleAll).addEventListener('click', function () {
-      self.toggleAll();
-    });
-
-    // Add event listener for the add todo form
-    document.querySelector(this.DOMElements.addTodoForm).addEventListener('submit', function (e) {
+  // Event handlers
+  handlers: {
+    // Toggle all handler
+    toggleAllHandler: function () {
+      App.toggleAll();
+    },
+    // Add todo handler
+    addTodoHandler: function (e) {
       e.preventDefault();
 
       var todoTextInput = this.querySelector('input');
 
       // Check if input contains a value
       if (todoTextInput.value !== '') {
-        self.addTodo(todoTextInput.value); // add todo with the value from the input
+        App.addTodo(todoTextInput.value); // add todo with the value from the input
         todoTextInput.value = ''; // clear the input
       }
-    });
-
-    // Add event listener for the change todo form
-    document.querySelector(this.DOMElements.changeTodoForm).addEventListener('submit', function (e) {
+    },
+    // Change todo handler
+    changeTodoHandler: function (e) {
       e.preventDefault()
 
       var todoPositionInput = this.querySelector('input.js-todo-position');
@@ -135,40 +128,65 @@ var App = {
 
       if (
         todoPositionInput.value !== '' && todoTextInput.value !== '' && // check if inputs contain values
-        parseInt(todoPositionInput.value) < self.todos.length // check if input position is valid
+        todoPositionInput.valueAsNumber < App.todos.length // check if input position is valid
       ) {
-        self.changeTodo(todoPositionInput.value, todoTextInput.value); // change todo with the given parameters
+        App.changeTodo(todoPositionInput.value, todoTextInput.value); // change todo with the given parameters
         todoPositionInput.value = ''; // clear the inputs
         todoTextInput.value = '';
       }
-    });
-
-    // Add event listener for the delete todo form
-    document.querySelector(this.DOMElements.deleteTodoForm).addEventListener('submit', function (e) {
+    },
+    // Delete todo handler
+    deleteTodoHandler: function (e) {
       e.preventDefault()
 
       var todoPositionInput = this.querySelector('input.js-todo-position');
 
       // Check if the input contains value
-      if (todoPositionInput.value !== '' && parseInt(todoPositionInput.value) < self.todos.length) {
-        self.deleteTodo(todoPositionInput.value); // change todo with the given parameters
+      if (todoPositionInput.value !== '' && todoPositionInput.valueAsNumber < App.todos.length) {
+        App.deleteTodo(todoPositionInput.value); // change todo with the given parameters
         todoPositionInput.value = ''; // clear the inputs
       }
-    });
-
-    // Add event listener for the toggle completed todo form
-    document.querySelector(this.DOMElements.toggleCompletedTodoForm).addEventListener('click', function (e) {
+    },
+    // Toggle completed handler
+    toggleCompletedHandler: function (e) {
       e.preventDefault();
 
       var todoPositionInput = this.querySelector('input.js-todo-position');
 
       // Check if the input contains value
-      if (todoPositionInput.value !== '' && parseInt(todoPositionInput.value) < self.todos.length) {
-        self.toggleCompleted(todoPositionInput.value);
-        todoPositionInput.value = '';
+      if (todoPositionInput.value !== '' && todoPositionInput.valueAsNumber < App.todos.length) {
+        App.toggleCompleted(todoPositionInput.value); // toggle todo
+        todoPositionInput.value = ''; // clear the input
       }
-    })
+    }
+  },
 
+  // Init method
+  init: function () {
+    var self = this;
+
+    // Display initial todos
+    this.displayTodos();
+
+    // Add event listener for the toggle all button
+    document.querySelector(this.DOMElements.buttonToggleAll)
+      .addEventListener('click', this.handlers.toggleAllHandler);
+
+    // Add event listener for the add todo form
+    document.querySelector(this.DOMElements.addTodoForm)
+      .addEventListener('submit', this.handlers.addTodoHandler);
+
+    // Add event listener for the change todo form
+    document.querySelector(this.DOMElements.changeTodoForm)
+      .addEventListener('submit', this.handlers.changeTodoHandler);
+
+    // Add event listener for the delete todo form
+    document.querySelector(this.DOMElements.deleteTodoForm)
+      .addEventListener('submit', this.handlers.deleteTodoHandler);
+
+    // Add event listener for the toggle completed todo form
+    document.querySelector(this.DOMElements.toggleCompletedTodoForm)
+      .addEventListener('submit', this.handlers.toggleCompletedHandler)
   }
 
 }
