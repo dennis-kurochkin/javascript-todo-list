@@ -26,6 +26,7 @@ var App = {
     addTodoForm: '.js-add-todo-form',
     changeTodoForm: '.js-change-todo-form',
     deleteTodoForm: '.js-delete-todo-form',
+    toggleCompletedTodoForm: '.js-toggle-completed-todo-form',
     todoList: '.js-todo-list',
   },
 
@@ -140,7 +141,7 @@ var App = {
         todoPositionInput.value = ''; // clear the inputs
         todoTextInput.value = '';
       }
-    })
+    });
 
     // Add event listener for the delete todo form
     document.querySelector(this.DOMElements.deleteTodoForm).addEventListener('submit', function (e) {
@@ -152,6 +153,19 @@ var App = {
       if (todoPositionInput.value !== '' && parseInt(todoPositionInput.value) < self.todos.length) {
         self.deleteTodo(todoPositionInput.value); // change todo with the given parameters
         todoPositionInput.value = ''; // clear the inputs
+      }
+    });
+
+    // Add event listener for the toggle completed todo form
+    document.querySelector(this.DOMElements.toggleCompletedTodoForm).addEventListener('click', function (e) {
+      e.preventDefault();
+
+      var todoPositionInput = this.querySelector('input.js-todo-position');
+
+      // Check if the input contains value
+      if (todoPositionInput.value !== '' && parseInt(todoPositionInput.value) < self.todos.length) {
+        self.toggleCompleted(todoPositionInput.value);
+        todoPositionInput.value = '';
       }
     })
 
