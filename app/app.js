@@ -41,42 +41,34 @@ var App = {
   displayTodos: function () {
     var todoList = document.querySelector(this.DOMElements.todoList);
 
-    if (this.todos.length > 0) {
-      todoList.innerHTML = '';
+    todoList.innerHTML = '';
 
-      this.todos.forEach(function (todo, index) {
-        var todoElement = document.createElement('li');
+    this.todos.forEach(function (todo, index) {
+      var todoElement = document.createElement('li');
 
-        todoElement.innerText = `${index}. [${todo.completed ? 'x' : ' '}] ${todo.todoText}`;
-        todoList.appendChild(todoElement);
-      });
-    } else {
-      todoList.innerHTML = '';
-    }
+      todoElement.innerText = `${index}. [${todo.completed ? 'x' : ' '}] ${todo.todoText}`;
+      todoList.appendChild(todoElement);
+    });
   },
 
   // Method to add todo
   addTodo: function (todoText) {
     this.todos.push(new Todo(todoText));
-    this.displayTodos();
   },
 
   // Method to change todo
   changeTodo: function (position, newTodoText) {
     this.todos[position].todoText = newTodoText;
-    this.displayTodos();
   },
 
   // Method to delete todo
   deleteTodo: function (position) {
     this.todos.splice(position, 1);
-    this.displayTodos();
   },
 
   // Method to toggle the todo completion
   toggleCompleted: function (position) {
     this.todos[position].toggleCompleted();
-    this.displayTodos();
   },
 
   // Method to toggle all the todos
@@ -97,8 +89,6 @@ var App = {
         todo.complete();
       }
     });
-
-    this.displayTodos();
   },
 
   // Event handlers
@@ -114,6 +104,8 @@ var App = {
         App.addTodo(todoTextInput.value); // add todo with the value from the input
         todoTextInput.value = ''; // clear the input
       }
+
+      App.displayTodos();
     },
     // Change todo handler
     changeTodoHandler: function (e) {
@@ -130,6 +122,8 @@ var App = {
         todoPositionInput.value = ''; // clear the inputs
         todoTextInput.value = '';
       }
+
+      App.displayTodos();
     },
     // Delete todo handler
     deleteTodoHandler: function (e) {
@@ -142,6 +136,8 @@ var App = {
         App.deleteTodo(todoPositionInput.value); // change todo with the given parameters
         todoPositionInput.value = ''; // clear the inputs
       }
+
+      App.displayTodos();
     },
     // Toggle completed handler
     toggleCompletedHandler: function (e) {
@@ -154,10 +150,13 @@ var App = {
         App.toggleCompleted(todoPositionInput.value); // toggle todo
         todoPositionInput.value = ''; // clear the input
       }
+
+      App.displayTodos();
     },
     // Toggle all handler
     toggleAllHandler: function () {
       App.toggleAll();
+      App.displayTodos();
     }
   },
 
